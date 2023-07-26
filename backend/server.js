@@ -3,12 +3,16 @@ import dotenv from "dotenv";
 dotenv.config();
 import todoRouter from "./routes/todo.js";
 import "express-async-errors";
+import morgan from "morgan";
 const app = express();
+
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
 // middlewares
 // access to body
 app.use(express.json());
-
 // routes
 app.use("/api/v1/todos", todoRouter);
 

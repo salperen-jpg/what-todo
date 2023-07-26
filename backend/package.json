@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "install-dependencies": "npm i && cd ../client && npm i",
     "start": "nodemon server.js"
   },
   "type": "module",
@@ -17,6 +18,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
-    "mongoose": "^7.4.1"
+    "mongoose": "^7.4.1",
+    "morgan": "^1.10.0"
   }
 }
