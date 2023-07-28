@@ -9,7 +9,7 @@ import {
   deleteTodo,
 } from "../controllers/todo.js";
 
-router.route("/").get(getTodos);
-router.route("/:id").get(getSingleTodo);
+router.route("/").get(getTodos).post(addTodo);
+router.route("/:id").get(getSingleTodo).patch(updateTodo).delete(deleteTodo);
 
 export default router;
