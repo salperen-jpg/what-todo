@@ -10,5 +10,6 @@ import {
 } from "../controllers/todo.js";
 
 router.route("/").get(getTodos);
+router.route("/:id").get(getSingleTodo);
 
 export default router;

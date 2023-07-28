@@ -4,7 +4,10 @@ const getTodos = async (req, res) => {
 
 const addTodo = async (req, res) => {};
 
-const getSingleTodo = async (req, res) => {};
+const getSingleTodo = async (req, res) => {
+  const { id } = req.params;
+  res.status(200).send("single todo");
+};
 
 const updateTodo = async (req, res) => {};
 

@@ -22,11 +22,15 @@ app.use(notFound);
 // startup
 const PORT = process.env.port || 5000;
 
+import { connectToDB } from "./db/connect.js";
 const startUp = async () => {
   // connect to db later on
   try {
+    await connectToDB(process.env.MONGO_URI);
     app.listen(PORT, () => console.log(`server is listening on port  ${PORT}`));
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 startUp();
