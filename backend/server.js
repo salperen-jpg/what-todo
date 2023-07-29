@@ -1,3 +1,4 @@
+import "express-async-errors";
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
@@ -18,7 +19,10 @@ app.use("/api/v1/todos", todoRouter);
 
 // errors
 import notFound from "./middlewares/not-found.js";
+import customErrorHandler from "./middlewares/CustomErrorHandler.js";
 app.use(notFound);
+app.use(customErrorHandler);
+
 // startup
 const PORT = process.env.port || 5000;
 
