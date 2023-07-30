@@ -1,5 +1,6 @@
-import { query, body, validationResult } from "express-validator";
+import { param, query, body, validationResult } from "express-validator";
 import { BadRequest } from "../errors/CustomError.js";
+import mongoose from "mongoose";
 
 const validationWithErrorHandler = (chainValues) => {
   return [
@@ -23,3 +24,15 @@ const todoChain = () =>
     .withMessage("Todo must be between 3 char and 100 char!");
 
 export const todoValidation = validationWithErrorHandler(todoChain());
+
+// id validation
+
+const idParamChain = () =>
+  param("id")
+    .custom((value) => {
+      console.log(value);
+      return mongoose.Types.ObjectId.isValid(value);
+    })
+    .withMessage("Unmatched id param");
+
+export const idValidation = validationWithErrorHandler(idParamChain());
