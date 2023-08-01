@@ -18,7 +18,6 @@ const addTodo = async (req, res) => {
 const getSingleTodo = async (req, res) => {
   const { id } = req.params;
   const todo = await Todo.findById(id);
-  if (!todo) throw new NotFound(`No todo with the id : ${id}`);
   res.status(StatusCodes.OK).json({ todo });
 };
 
@@ -33,22 +32,12 @@ const updateTodo = async (req, res) => {
       overwrite: true,
     }
   );
-  if (!updateTodo) {
-    return res
-      .status(StatusCodes.NOT_FOUND)
-      .json({ msg: `No todo with the id : ${id}` });
-  }
   res.send({ todo: updatedTodo });
 };
 
 const deleteTodo = async (req, res) => {
   const { id } = req.params;
   const deletedTodo = await Todo.findByIdAndDelete(id);
-  if (!deletedTodo) {
-    return res
-      .status(StatusCodes.NOT_FOUND)
-      .json({ msg: `No todo with the id : ${id}` });
-  }
   res.status(200).json({
     todo: deletedTodo,
     msg: "succes",
