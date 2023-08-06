@@ -7,11 +7,11 @@ const getTodos = async (req, res) => {
 };
 
 const addTodo = async (req, res) => {
-  const { todo } = req.body;
+  const { todo, isCompleted } = req.body;
   if (!todo) {
     throw new BadRequest("Please provide the values");
   }
-  const newTodo = await Todo.create({ todo });
+  const newTodo = await Todo.create({ todo, isCompleted });
   res.status(StatusCodes.CREATED).json({ todo: newTodo });
 };
 
