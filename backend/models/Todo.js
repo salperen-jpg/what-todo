@@ -15,7 +15,7 @@ const todoSchema = new mongoose.Schema({
   },
 });
 
-export default new mongoose.model("Todo", todoSchema);
+export default mongoose.model("Todo", todoSchema);
 
 /*
 isCompleted:boolean,
