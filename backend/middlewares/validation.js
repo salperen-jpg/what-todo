@@ -2,6 +2,7 @@ import { param, query, body, validationResult } from "express-validator";
 import { BadRequest, NotFound } from "../errors/CustomError.js";
 import mongoose from "mongoose";
 import Todo from "../models/Todo.js";
+import User from "../models/User.js";
 
 const validationWithErrorHandler = (chainValues) => {
   return [
@@ -43,3 +44,28 @@ const idParamChain = () =>
   });
 
 export const idValidation = validationWithErrorHandler(idParamChain());
+
+// user validation
+const userParamChain = () => {
+  return [
+    body("name").notEmpty().withMessage("Name can not be empty"),
+    body("email")
+      .notEmpty()
+      .withMessage("Mail can not be empty")
+      .isEmail()
+      .withMessage("Wrong format")
+      .custom(async (value) => {
+        const isEmailInUse = await User.findOne({ email: value });
+        if (isEmailInUse) {
+          throw new Error("Email already in use!!!");
+        }
+      }),
+    body("password")
+      .notEmpty()
+      .withMessage("Password can not be empty")
+      .isLength({ min: 6 })
+      .withMessage("Password must be at least 6 characters"),
+  ];
+};
+
+export const userValidation = validationWithErrorHandler(userParamChain());
