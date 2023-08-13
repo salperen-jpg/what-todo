@@ -45,7 +45,7 @@ const idParamChain = () =>
 
 export const idValidation = validationWithErrorHandler(idParamChain());
 
-// user validation
+// user login validation
 const userParamChain = () => {
   return [
     body("name").notEmpty().withMessage("Name can not be empty"),
@@ -69,3 +69,20 @@ const userParamChain = () => {
 };
 
 export const userValidation = validationWithErrorHandler(userParamChain());
+
+// user register validation
+
+const userLoginChain = () => [
+  body("email")
+    .notEmpty()
+    .withMessage("Mail can not be empty")
+    .isEmail()
+    .withMessage("Wrong format"),
+  body("password")
+    .notEmpty()
+    .withMessage("Password can not be empty")
+    .isLength({ min: 6 })
+    .withMessage("Password must be at least 6 characters"),
+];
+
+export const userLoginValidation = validationWithErrorHandler(userLoginChain());
