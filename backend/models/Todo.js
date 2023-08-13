@@ -9,6 +9,10 @@ const todoSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  createdBy: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+  },
   createdAt: {
     type: Date,
     default: Date.now(),
@@ -16,12 +20,3 @@ const todoSchema = new mongoose.Schema({
 });
 
 export default mongoose.model("Todo", todoSchema);
-
-/*
-isCompleted:boolean,
-todo:string,
-createdAt: date,
-coming up
-isNotified:boolean,
-whenToNotified:date,
-*/
