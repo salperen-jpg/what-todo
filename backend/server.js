@@ -1,11 +1,10 @@
 import "express-async-errors";
 import express from "express";
+const app = express();
 import dotenv from "dotenv";
 dotenv.config();
-import todoRouter from "./routes/todo.js";
-import "express-async-errors";
 import morgan from "morgan";
-const app = express();
+import cookieParser from "cookie-parser";
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
@@ -14,8 +13,14 @@ if (process.env.NODE_ENV === "development") {
 // middlewares
 // access to body
 app.use(express.json());
+app.use(cookieParser());
+import { auth } from "./middlewares/auth.js";
+
 // routes
-app.use("/api/v1/todos", todoRouter);
+import todoRouter from "./routes/todo.js";
+import userRouter from "./routes/user.js";
+app.use("/api/v1/todos", auth, todoRouter);
+app.use("/api/v1/auth", userRouter);
 
 // errors
 import notFound from "./middlewares/not-found.js";
